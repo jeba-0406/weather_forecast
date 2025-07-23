@@ -11,7 +11,7 @@ export default function WeatherComponent() {
     const { weather, isLoading, fetchWeather, error } = useWeatherStore();
     useEffect(() => {
         fetchWeather("theni");
-    }, []);
+    }, [fetchWeather]);
 
     useEffect(() => {
         if (weather) {

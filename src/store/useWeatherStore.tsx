@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 
 type WeatherData = {
@@ -6,7 +5,7 @@ type WeatherData = {
   city: string;
   humidity: number;
   windSpeed: number;
-  weathertype:string;
+  weathertype: string;
 };
 
 type WeatherState = {
@@ -41,17 +40,25 @@ export const useWeatherStore = create<WeatherState>((set) => ({
           city: data.name,
           humidity: data.main.humidity,
           windSpeed: data.wind.speed,
-          weathertype:data.weather[0].main,
+          weathertype: data.weather[0].main,
         },
         isLoading: false,
         error: null,
       });
-    } catch (error: any) {
-      set({
-        isLoading: false,
-        weather: null,
-        error: error.message || 'Failed to fetch weather',
-      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        set({
+          isLoading: false,
+          weather: null,
+          error: error.message,
+        });
+      } else {
+        set({
+          isLoading: false,
+          weather: null,
+          error: 'Failed to fetch weather',
+        });
+      }
     }
   },
 }));

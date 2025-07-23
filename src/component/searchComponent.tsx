@@ -1,6 +1,6 @@
 "use client" 
 import {Input} from "@heroui/react";
-import Search from "@/atoms/search";
+
 type Props = {
   onSearch: (city: string) => void;
 };
